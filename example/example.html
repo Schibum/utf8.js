@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <title>Example</title>
+    <script src="http://requirejs.org/docs/release/2.1.4/minified/require.js"></script>
+  </head>
+  <body>
+    <div>
+      Bytes: <span id="bytes"></span>
+    </div>
+    <div>
+      String: <span id="string"></span>
+    </div>
+    <script type="text/javascript">
+      // Example with require.js. If you dont use requirejs, it just exports
+      // itself globaly to window.utf8.
+      require(['../src/utf8.js'], function(myUtf8) {
+        var bytesEl = document.getElementById('bytes');
+        var stringEl = document.getElementById('string');
+        var bytes = myUtf8.stringToUTF8Bytes('hello utf8 € $');
+        bytesEl.innerText = bytes.toString();
+        var str = myUtf8.UTF8BytesToString(bytes)
+        stringEl.innerText = str;
+      });
+    </script>
+  </body>
+</html>
