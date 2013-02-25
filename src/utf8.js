@@ -1,8 +1,8 @@
 /**
- * License: LGPL v2
+ * License: LGPL v3
  * @author mb@w69b.com (Manuel Braun)
  */
-(function() {
+(function(global) {
   /**
    * Snippet borrowed from http://goo.gl/3lRpR.
   */
@@ -52,7 +52,7 @@
   /**
    * Convert string to UTF8 byte sequence.
    * @param {string} str javascript string (unicode).
-   * @param {Array.<number>} byte sequence.
+   * @return {Array.<number>} byte sequence.
    */
   function stringToUTF8Bytes(str) {
     var bytes = [];
@@ -95,7 +95,7 @@
   /**
    * Convert UTF8 byte sequence to string.
    * @param {Array.<number>} bytes UTF8 byte sequence.
-   * @param {?string} result string or null on error (invalid input).
+   * @return {?string} result string or null on error (invalid input).
    */
   function UTF8BytesToString(bytes) {
     var length = bytes.length;
@@ -165,20 +165,16 @@
     UTF8BytesToString: UTF8BytesToString
   };
 
-  var exported = false;
-  // require js compatibility hook.
-  if (typeof(define) == 'function') {
-    define(exports);
-    exported = true;
-  }
-  // Google Closure Tools compatibility hook.
   if (typeof(goog) == 'object' && goog.provide) {
+    // Google Closure Tools compatibility hook.
     goog.provide('w69b.utf8');
-    w69b.utf8 = exports;
-    exported = true;
+    w69b.utf8.stringToUTF8Bytes = stringToUTF8Bytes;
+    w69b.utf8.UTF8BytesToString = UTF8BytesToString;
+  } else if (typeof(global.define) == 'function') {
+    // require js compatibility hook.
+    global.define(exports);
+  } else {
+    // Plain old global export fallback.
+    global['utf8'] = exports;
   }
-  // Plain old global export fallback.
-  if (!exported) {
-    self['utf8'] = exports;
-  }
-})();
+})(self);

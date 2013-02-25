@@ -21,14 +21,14 @@ var str = utf8.UTF8BytesToString(bytes)
 /**
  * Convert string to UTF8 byte sequence.
  * @param {string} str javascript string (unicode).
- * @param {Array.<number>} byte sequence.
+ * @return {Array.<number>} byte sequence.
  */
 function stringToUTF8Bytes (str) {}
 
 /**
  * Convert UTF8 byte sequence to string.
  * @param {Array.<number>} bytes UTF8 byte sequence.
- * @param {?string} result string or null on error (invalid input).
+ * @return {?string} result string or null on error (invalid input).
  */
 function UTF8BytesToString(bytes) {}
 ```

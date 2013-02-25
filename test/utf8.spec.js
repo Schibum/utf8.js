@@ -47,6 +47,10 @@ describe('utf8 tests', function() {
     expect(toStr([0xE2, 0xAC])).toBeNull();
   });
 
+  it('should return empty array on empty input', function() {
+    expect(toUTF8('')).toEqual([]);
+  });
+
   it('should be consistent', function() {
     expectIdentity('#äöl€$😃');
     expectIdentity('汉字/漢字 "Ha');
